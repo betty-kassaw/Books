@@ -34,5 +34,9 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource(name:'books', controller: \App\Http\Controllers\BookController::class);
+    Route::resource(name:'books', controller: \App\Http\Controllers\BookController::class)
+          -> names([
+            'index'=>'books'
+          ]);
+
 });

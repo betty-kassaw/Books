@@ -30,9 +30,9 @@ const logout = () => {
 
 <template>
     <div>
-        <Head :title="title" />
+        <!-- <Head :title="title" /> -->
 
-        <Banner />
+        <!-- <Banner /> -->
 
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
@@ -51,6 +51,11 @@ const logout = () => {
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('books')" :active="route().current('books')">
+                                    Books
                                 </NavLink>
                             </div>
                         </div>

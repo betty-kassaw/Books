@@ -1,8 +1,8 @@
 <template>
-    
+<AppLayout>
     <div class="flex flex-col">
         <div class="overflow-x-auto">
-            <div class="py-3 pl-2">
+            <div class="py-3 pl-2 flex justify-between">
                 <div class="relative max-w-xs">
                     <label for="search" class="sr-only"> Search </label>
                     <input
@@ -30,9 +30,12 @@
                         </svg>
                     </div>
                 </div>
+                <div class="flex mx-7 border rounded bg-green-700 px-3 ">
+                    <button class="text-white"> Create New Book</button>
+                </div>
             </div>
 
-            <div class="p-1.5 w-full inline-block align-middle">
+            <div class="p-7 md:w-full  inline-block align-middle">
                 <div class="overflow-hidden border rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -179,15 +182,20 @@
                             
                         </tbody>
                     </table>
+                    <pagination :links="data.links"></pagination>
                 </div>
             </div>
         </div>
     </div>
-   
+</AppLayout>
 </template>
 <script>
+import AppLayout from '@/Layouts/AppLayout.vue';
+import pagination from '@/components/pagination.vue';
+import Pagination from '../Components/pagination.vue';
 export default{
-    props: ['data'],
+    props: ["data"],
+    components: { AppLayout, pagination }
 }
 </script>
 
