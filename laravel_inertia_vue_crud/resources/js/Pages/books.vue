@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="flex mx-7 border rounded bg-green-700 px-3 ">
-                    <button class="text-white"> Create New Book</button>
+                    <button @click="openForm()" class="text-white"> Create New Book</button>
                 </div>
             </div>
 
@@ -161,28 +161,31 @@
                                 <td
                                     class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
                                 >
-                                    <a
+                                    <button
+                                        @click="openForm(item)"
                                         class="text-green-500 hover:text-green-700"
                                         href="#"
                                     >
                                         Edit
-                                    </a>
+                                    </button>
                                 </td>
                                 <td
                                     class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
                                 >
-                                    <a
+                                    <button
+                                        @click="deleteItem(item)"
                                         class="text-red-500 hover:text-red-700"
                                         href="#"
                                     >
                                         Delete
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             
                         </tbody>
                     </table>
                     <pagination :links="data.links"></pagination>
+                    <book-form :isOpen="isFormOpen" :isEdit="isFormEdit" :form="formObject" @formsave="saveItem" @formclose="closeModal" ></book-form>
                 </div>
             </div>
         </div>
@@ -190,12 +193,57 @@
 </AppLayout>
 </template>
 <script>
+const defaultFormObject = {
+    title:null, author:null, description:null, image:null
+};
 import AppLayout from '@/Layouts/AppLayout.vue';
-import pagination from '@/components/pagination.vue';
-import Pagination from '../Components/pagination.vue';
+import pagination from '@/Components/pagination.vue';
+import BookForm from '@/Components/Book/form.vue';
+
 export default{
     props: ["data"],
-    components: { AppLayout, pagination }
+    components: { AppLayout, pagination,BookForm},
+    data(){
+        return{
+            isFormOpen: false,
+            isFormEdit: false,
+            formObject: defaultFormObject
+        }
+    },
+    methods:{
+        saveItem(item){
+            let url = '/books';
+            if(item.id){
+                url = '/books/'+item.id;
+                item._method = 'PUT';
+
+            }
+            this.$inertia.post(url,item, {
+                onError:()=>{
+
+                },
+                onSuccess:()=>{
+                    this.closeModal();
+                }
+            });
+        },
+        closeModal(){
+            this.isOpen = false;
+        },
+        openForm(item){
+            this.isFormOpen = true;
+            this.isFormEdit = !!item;
+            this.formObject = item ? item : defaultFormObject;
+        },
+        deleteItem(item){
+            if(window.confirm('are you sure?')){
+                this.$inertia.post('/books/'+item.id, {
+                    _method: 'DELETE'
+                });
+            }
+        }
+
+    }
 }
 </script>
 
