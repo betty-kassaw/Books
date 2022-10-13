@@ -1,7 +1,7 @@
 <template>
-   <div v-if="isOpen" class="modal fixed w-full h-full top-14 left-0 flex items-center justify-center">
-   <div  class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50">
-   <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+   <div v-if="isOpen" class="modal fixed w-full h-full top-14 left-0 flex items-center justify-center z-1-0">
+   <div  class="modal-overlay absolute w-full h-full bg-gray-900 opacity-80">
+   <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-100 overflow-y-auto">
     <div  class="modal-content py-4 text-left px-6">
       <div class="flex justify-center items-center pb-3">
                     <p class="text-2xl font-bold text-center">Add New Book</p>
@@ -13,6 +13,7 @@
     <input id="input1"
     v-model="form.title"
     class="w-full border px-4 py-2 rounded-full focus:border-blue-500 focus:shadow-outline outline-none outline-none" type="text" placeholder="Full name..." />
+    <div v-if="$page.props.errors.title" class="text-red-500"> {{$page.props.errors.title}} </div>
   </div>
   <div class="mb-4 px-2 w-full">
     <label class="block mb-1 text-sm" for="input1">Author:</label>
@@ -20,6 +21,7 @@
     <input id="input1" 
     v-model="form.author"
     class="w-full border px-4 py-2 rounded-full focus:border-blue-500 focus:shadow-outline outline-none outline-none" type="text" placeholder="Full name..." />
+    <div v-if="$page.props.errors.author" class="text-red-500"> {{$page.props.errors.author}} </div>
   </div>
   <div class="mb-4 px-2 w-full">
     <label class="block mb-1 text-sm" for="textarea1">Textarea</label>
@@ -27,6 +29,7 @@
     <textarea id="textarea1" 
     v-model="form.description"
     class="w-full border px-4 py-2 rounded focus:border-blue-500 focus:shadow-outline outline-none" rows="5" placeholder="Textarea placeholder..."></textarea>
+    <div v-if="$page.props.errors.description" class="text-red-500"> {{$page.props.errors.descr}} </div>
   </div>
   <div class="m-4">
               <label class="inline-block mb-2 text-gray-500">Upload

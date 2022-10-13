@@ -29,6 +29,14 @@
                             />
                         </svg>
                     </div>
+
+                </div>
+                <div class="bg-teal-100 border-t-4 border-teal-500 rounded text-teal-900 px-4 py-3 shadow-md my-3" role="alert" v-if="$page.props.flash.message">
+                    <div class="flex">
+                        <div>
+                            <p class="text-sm"> {{$page.props.flash.message}}</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="flex mx-7 border rounded bg-green-700 px-3 ">
                     <button @click="openForm()" class="text-white"> Create New Book</button>
